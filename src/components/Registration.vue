@@ -37,9 +37,7 @@ const isStrongPassword = computed(() => {
 });
 
 const isConfirmPassword = computed(() => {
-    return confirmPassword.value
-        ? password.value === confirmPassword.value
-        : null;
+    return confirmPassword.value ? password.value === confirmPassword.value : null;
 });
 </script>
 
