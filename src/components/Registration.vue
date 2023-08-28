@@ -7,19 +7,19 @@ const regex = {
     password: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/
 }
 
+const startValidation = ref(true);
+
 const name = ref('');
 const number = ref('');
 const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 
-const startValidation = ref('');
-
 const doRegistration = () => {
     // startValidation.value = true;
 
-    if(isValidNumber.value == true && isValidEmail.value == true && isStrongPassword.value == true && isConfirmPassword.value == true) {
-        console.log('Registering...')
+    if(isValidNumber == true && isValidEmail == true && isStrongPassword == true && isConfirmPassword == true) {
+        alert('Registering...')
     }
 }
 
@@ -43,7 +43,6 @@ const isConfirmPassword = computed(() => {
 <template>
     <h1 class="text-3xl font-bold text-blue-500 mb-10 text-center">Registration</h1>
 
-    {{ startValidation }}
     <div class="bg-slate-100 rounded-xl p-10">
         <form action="">
             <div class="form-group">
