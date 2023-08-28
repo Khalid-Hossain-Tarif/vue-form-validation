@@ -18,7 +18,7 @@ const confirmPassword = ref('');
 const doRegistration = () => {
     // startValidation.value = true;
 
-    if(isValidNumber == true && isValidEmail == true && isStrongPassword == true && isConfirmPassword == true) {
+    if(isValidNumber.value == true && isValidEmail.value == true && isStrongPassword.value == true && isConfirmPassword.value == true) {
         alert('Registering...')
     }
 }
