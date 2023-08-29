@@ -13,6 +13,9 @@ const email = ref('');
 const password = ref('');
 const confirmPassword = ref('');
 
+const passwordHideShow = ref(false);
+const confirmPasswordHideShow = ref(false);
+
 const doRegistration = () => {
     if (
         isValidNumber.value &&
@@ -39,6 +42,18 @@ const isStrongPassword = computed(() => {
 const isConfirmPassword = computed(() => {
     return confirmPassword.value ? password.value === confirmPassword.value : null;
 });
+
+const doPasswordHideShow = () => {
+  const passwordId = document.getElementById('password');
+  passwordHideShow.value = !passwordHideShow.value;
+  passwordId.type === "password" ? passwordId.type = "text" : passwordId.type = "password";
+}
+
+const doConfirmPasswordHideShow = () => {
+  const passwordId = document.getElementById('confirm-password');
+  confirmPasswordHideShow.value = !confirmPasswordHideShow.value;
+  passwordId.type === "password" ? passwordId.type = "text" : passwordId.type = "password";
+}
 </script>
 
 <template>
@@ -47,7 +62,7 @@ const isConfirmPassword = computed(() => {
     </h1>
 
     <div class="bg-slate-100 rounded-xl p-10">
-        <form action="">
+        <form action="" autocomplete="off">
             <div class="form-group">
                 <label class="primary-form-label" for="name">Name</label>
                 <input class="primary-input-field" type="text" name="" id="name" placeholder="Enter your name"
@@ -74,8 +89,11 @@ const isConfirmPassword = computed(() => {
 
             <div class="form-group">
                 <label class="primary-form-label" for="password">Password</label>
-                <input class="primary-input-field" type="password" name="" id="password" placeholder="Enter your password"
-                    v-model="password" required />
+                <div class="flex justify-between items-center gap-1">
+                  <input class="primary-input-field" type="password" name="" id="password" placeholder="Enter your password"
+                         v-model="password" required />
+                  <button @click="doPasswordHideShow">{{ passwordHideShow }}</button>
+                </div>
                 <div class="error-message" v-show="password !== '' && !isStrongPassword">
                     Weak Password
                 </div>
@@ -83,8 +101,11 @@ const isConfirmPassword = computed(() => {
 
             <div class="form-group">
                 <label class="primary-form-label" for="confirm-password">Confirm Password</label>
-                <input class="primary-input-field" type="password" name="" id="confirm-password"
-                    placeholder="Confirm your password" v-model="confirmPassword" required />
+                <div class="flex justify-between items-center gap-1">
+                  <input class="primary-input-field" type="password" name="" id="confirm-password"
+                         placeholder="Confirm your password" v-model="confirmPassword" required />
+                  <button @click="doConfirmPasswordHideShow">{{ confirmPasswordHideShow }}</button>
+                </div>
                 <div class="error-message" v-show="confirmPassword !== '' && !isConfirmPassword">
                     Password didn't match!
                 </div>
