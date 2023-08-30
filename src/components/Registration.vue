@@ -16,6 +16,8 @@ const confirmPassword = ref('');
 const passwordHideShow = ref(false);
 const confirmPasswordHideShow = ref(false);
 
+const passwordErrorMsg = ref('');
+
 const doRegistration = () => {
     if (
         isValidNumber.value &&
@@ -43,20 +45,6 @@ const isConfirmPassword = computed(() => {
     return confirmPassword.value ? password.value === confirmPassword.value : null;
 });
 
-const passwordErrorMsg = ref('');
-
-const passwordErrorHandler = computed(() => {
-  if(!/[A-Z]/.test(password.value) && !/[a-z]/.test(password.value)) {
-    return passwordErrorMsg.value = 'Use both lowercase and uppercase letters.'
-  }
-  else if(!/[0-9]/.test(password.value)) {
-    return passwordErrorMsg.value = 'Include at least one number'
-  }
-  else if(!/[^A-Za-z0-9]/.test(password.value)) {
-    return passwordErrorMsg.value = 'Include at least one special character.'
-  }
-})
-
 const doPasswordHideShow = () => {
   const passwordId = document.getElementById('password');
   passwordHideShow.value = !passwordHideShow.value;
@@ -71,6 +59,24 @@ const doConfirmPasswordHideShow = () => {
 
 const doButtonDisabled = computed(() => {
   return !(isValidNumber.value && isValidEmail.value && isStrongPassword.value && isConfirmPassword.value)
+})
+
+const passwordErrorHandler = computed(() => {
+  if(!/(?=.{8,})/.test(password.value)) {
+    return passwordErrorMsg.value = 'Password should at least 8 characters'
+  }
+  else if(!/[a-z]/.test(password.value)) {
+    return passwordErrorMsg.value = 'Use at least one lowercase letter.'
+  }
+  else if(!/[A-Z]/.test(password.value)) {
+    return passwordErrorMsg.value = 'Use at least one uppercase letter.'
+  }
+  else if(!/[0-9]/.test(password.value)) {
+    return passwordErrorMsg.value = 'Include at least one number'
+  }
+  else if(!/[^A-Za-z0-9]/.test(password.value)) {
+    return passwordErrorMsg.value = 'Include at least one special character.'
+  }
 })
 </script>
 
@@ -115,7 +121,7 @@ const doButtonDisabled = computed(() => {
 <!--                <div class="error-message" v-show="password !== '' && !isStrongPassword">-->
 <!--                    Weak Password-->
 <!--                </div>-->
-                <div class="error-message" v-show="passwordErrorHandler">
+                <div class="error-message" v-show="password && passwordErrorHandler">
                     {{ passwordErrorMsg }}
                 </div>
             </div>
