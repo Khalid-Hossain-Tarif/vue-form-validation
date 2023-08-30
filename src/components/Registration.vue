@@ -54,6 +54,10 @@ const doConfirmPasswordHideShow = () => {
   confirmPasswordHideShow.value = !confirmPasswordHideShow.value;
   passwordId.type === "password" ? passwordId.type = "text" : passwordId.type = "password";
 }
+
+const doButtonDisabled = computed(() => {
+  return !(isValidNumber.value && isValidEmail.value && isStrongPassword.value && isConfirmPassword.value)
+})
 </script>
 
 <template>
@@ -112,7 +116,7 @@ const doConfirmPasswordHideShow = () => {
             </div>
 
             <div class="form-group">
-                <button @click="doRegistration" class="primary-btn">Submit</button>
+                <button @click="doRegistration" :disabled="doButtonDisabled" class="primary-btn" :class="doButtonDisabled ? 'opacity-30' : 'opacity-100'">Submit</button>
             </div>
         </form>
     </div>
