@@ -86,7 +86,7 @@ const passwordErrorHandler = computed(() => {
     </h1>
 
     <div class="bg-slate-100 rounded-xl p-10">
-        <form action="" autocomplete="off">
+        <div>
             <div class="form-group">
                 <label class="primary-form-label" for="name">Name</label>
                 <input class="primary-input-field" type="text" name="" id="name" placeholder="Enter your name"
@@ -141,6 +141,6 @@ const passwordErrorHandler = computed(() => {
             <div class="form-group">
                 <button @click="doRegistration" :disabled="doButtonDisabled" class="primary-btn" :class="doButtonDisabled ? 'opacity-30' : 'opacity-100'">Submit</button>
             </div>
-        </form>
+        </div>
     </div>
 </template>
