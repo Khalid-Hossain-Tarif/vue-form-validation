@@ -43,6 +43,20 @@ const isConfirmPassword = computed(() => {
     return confirmPassword.value ? password.value === confirmPassword.value : null;
 });
 
+const passwordErrorMsg = ref('');
+
+const passwordErrorHandler = computed(() => {
+  if(!/[A-Z]/.test(password.value) && !/[a-z]/.test(password.value)) {
+    return passwordErrorMsg.value = 'Use both lowercase and uppercase letters.'
+  }
+  else if(!/[0-9]/.test(password.value)) {
+    return passwordErrorMsg.value = 'Include at least one number'
+  }
+  else if(!/[^A-Za-z0-9]/.test(password.value)) {
+    return passwordErrorMsg.value = 'Include at least one special character.'
+  }
+})
+
 const doPasswordHideShow = () => {
   const passwordId = document.getElementById('password');
   passwordHideShow.value = !passwordHideShow.value;
@@ -98,8 +112,11 @@ const doButtonDisabled = computed(() => {
                          v-model="password" required />
                   <button @click="doPasswordHideShow">{{ passwordHideShow }}</button>
                 </div>
-                <div class="error-message" v-show="password !== '' && !isStrongPassword">
-                    Weak Password
+<!--                <div class="error-message" v-show="password !== '' && !isStrongPassword">-->
+<!--                    Weak Password-->
+<!--                </div>-->
+                <div class="error-message" v-show="passwordErrorHandler">
+                    {{ passwordErrorMsg }}
                 </div>
             </div>
 
